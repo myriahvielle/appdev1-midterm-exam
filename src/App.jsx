@@ -1,12 +1,26 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [show, setShow] = useState(false); 
+  const [toggleModal, setToggleModal] = useState(false);
+
+  function handleToggleModal() {
+    setToggleModal(!toggleModal);
+  }
+
+
   return (
    <>
+{/* <div id="js-preloader" className="js-preloader">
+  <div className="preloader-inner">
+    <span className="dot" />
+    <div className="dots">
+      <span />
+      <span />
+      <span />
+    </div>
+  </div>
+</div> */}
 
   <header
     className="header-area header-sticky wow slideInDown"
@@ -43,11 +57,7 @@ function App() {
               </li>
               <li>
                 <div className="gradient-button">
-                  <a id="modal_trigger" href="#modal" onClick={(e) =>
-                     {
-                     e.preventDefault();
-                    setShow(true);   
-                    }}>
+                     <a id="modal_trigger" href="#modal" onClick={handleToggleModal}>
                     <i className="fa fa-sign-in-alt" /> Sign In Now
                   </a>
                 </div>
@@ -63,10 +73,28 @@ function App() {
     </div>
   </header>
   {/* ***** Header Area End ***** */}
-  <div id="modal" className="popupContainer"  style={{ display: show ? "block" : "none" }}>
+  <div
+  id="modal"
+  className="popupContainer"
+  style={
+    toggleModal
+      ? {
+          display: "block",
+          position: "fixed",
+          opacity: 1,
+          zIndex: 11000,
+          left: "50%",
+          marginLeft: "-165px",
+          top: 100,
+        }
+      : {
+          display: "none",
+        }
+  }
+>
     <div className="popupHeader">
       <span className="header_title">Login</span>
-      <span className="modal_close" onClick={() => setShow(false)}> 
+      <span className="modal_close" onClick={handleToggleModal}>
         <i className="fa fa-times" />
       </span>
     </div>
@@ -118,12 +146,12 @@ function App() {
           </div>
           <div className="action_btns">
             <div className="one_half">
-              <a href="#" className="btn back_btn">
+              <a href="#" className="btn back_btn" >
                 <i className="fa fa-angle-double-left" /> Back
               </a>
             </div>
             <div className="one_half last">
-              <a href="#" className="btn btn_red">
+              <a href="#" className="btn">
                 Login
               </a>
             </div>
@@ -133,6 +161,7 @@ function App() {
           Forgot password?
         </a>
       </div>
+   
       {/* Register Form */}
       <div className="user_register">
         <form>
@@ -158,13 +187,14 @@ function App() {
               </a>
             </div>
             <div className="one_half last">
-              <a href="#" className="btn btn_red">
+              <a id="modal_trigger" href="#modal" className="btn" onClick={handleToggleModal}>
                 Register
               </a>
             </div>
           </div>
         </form>
       </div>
+    
     </section>
   </div>
   <div
@@ -904,7 +934,16 @@ function App() {
       </div>
     </div>
   </footer>
+<div
+  id="lean_overlay"
+  style={
+    toggleModal
+      ? { display: "block", opacity: "0.6" }
+      : { display: "none" }
+  }
+/>
 </>
+
 )}
 
 export default App;
