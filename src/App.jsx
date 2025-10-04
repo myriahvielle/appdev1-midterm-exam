@@ -2,10 +2,12 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+
 function App() {
+  const [show, setShow] = useState(false); 
   return (
    <>
-  {/* ***** Header Area Start ***** */}
+
   <header
     className="header-area header-sticky wow slideInDown"
     data-wow-duration="0.75s"
@@ -41,7 +43,11 @@ function App() {
               </li>
               <li>
                 <div className="gradient-button">
-                  <a id="modal_trigger" href="#modal">
+                  <a id="modal_trigger" href="#modal" onClick={(e) =>
+                     {
+                     e.preventDefault();
+                    setShow(true);   
+                    }}>
                     <i className="fa fa-sign-in-alt" /> Sign In Now
                   </a>
                 </div>
@@ -57,10 +63,10 @@ function App() {
     </div>
   </header>
   {/* ***** Header Area End ***** */}
-  <div id="modal" className="popupContainer" style={{ display: "none" }}>
+  <div id="modal" className="popupContainer"  style={{ display: show ? "block" : "none" }}>
     <div className="popupHeader">
       <span className="header_title">Login</span>
-      <span className="modal_close">
+      <span className="modal_close" onClick={() => setShow(false)}> 
         <i className="fa fa-times" />
       </span>
     </div>
